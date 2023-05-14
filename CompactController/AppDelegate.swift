@@ -2,8 +2,6 @@
 //  AppDelegate.swift
 //  CompactController
 //
-//  Created by Svetlana Shardakova on 14.05.2023.
-//
 
 import UIKit
 
