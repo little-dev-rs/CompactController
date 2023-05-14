@@ -13,6 +13,7 @@
 		70F3AB312A11263E006568AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70F3AB2F2A11263E006568AA /* Main.storyboard */; };
 		70F3AB332A112640006568AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70F3AB322A112640006568AA /* Assets.xcassets */; };
 		70F3AB362A112640006568AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70F3AB342A112640006568AA /* LaunchScreen.storyboard */; };
+		70F3AB3E2A11528C006568AA /* ChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F3AB3D2A11528C006568AA /* ChildViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		70F3AB322A112640006568AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		70F3AB352A112640006568AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70F3AB372A112640006568AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70F3AB3D2A11528C006568AA /* ChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				70F3AB292A11263E006568AA /* AppDelegate.swift */,
 				70F3AB2B2A11263E006568AA /* SceneDelegate.swift */,
 				70F3AB2D2A11263E006568AA /* ViewController.swift */,
+				70F3AB3D2A11528C006568AA /* ChildViewController.swift */,
 				70F3AB2F2A11263E006568AA /* Main.storyboard */,
 				70F3AB322A112640006568AA /* Assets.xcassets */,
 				70F3AB342A112640006568AA /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 				70F3AB2E2A11263E006568AA /* ViewController.swift in Sources */,
 				70F3AB2A2A11263E006568AA /* AppDelegate.swift in Sources */,
 				70F3AB2C2A11263E006568AA /* SceneDelegate.swift in Sources */,
+				70F3AB3E2A11528C006568AA /* ChildViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

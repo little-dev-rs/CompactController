@@ -8,31 +8,39 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var buttton: UIButton!
-
     @IBAction func buttonTapped(_ sender: UIButton) {
         showPopup()
     }
     
     let popupViewController = ChildViewController()
+    let triangeView = UIView()
+    let triangleLayer = CAShapeLayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @objc func showPopup() {
+        view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
         addChild(popupViewController)
-        
-//        let overlayView = UIView(frame: parentViewController.view.bounds)
-//        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-//        overlayView.tag = 100 // Add a tag to the overlay view for later removal
-
-        setupChildSize(isFirst: true, animated: false)
         self.view.addSubview(popupViewController.view)
         popupViewController.didMove(toParent: self)
         setupChildVC()
     }
     
+    private func setupTriangle() {
+        let trianglePath = UIBezierPath()
+        trianglePath.move(to: CGPoint(x: 0, y: 0))
+        trianglePath.addLine(to: CGPoint(x: 20, y: 20))
+        trianglePath.addLine(to: CGPoint(x: -20, y: 20))
+        trianglePath.close()
+        triangleLayer.path = trianglePath.cgPath
+        triangleLayer.fillColor = UIColor.white.cgColor
+    }
+    
     private func setupChildVC() {
+        setupTriangle()
+        setupChildSize(isFirst: true, animated: false)
         popupViewController.onCloseButtonTapped = { [weak self] in
             self?.closePopup()
         }
@@ -42,16 +50,19 @@ class ViewController: UIViewController {
         popupViewController.onSecondSegmentSelected = { [weak self] in
             self?.setupChildSize(isFirst: false, animated: true)
         }
+        popupViewController.view.layer.addSublayer(triangleLayer)
+        triangleLayer.frame = CGRect(x: 150, y: -20, width: 20, height: 20)
     }
     
     private func closePopup() {
+        view.backgroundColor = .white
         popupViewController.willMove(toParent: nil)
         popupViewController.view.removeFromSuperview()
         popupViewController.removeFromParent()
     }
     
     private func setupChildSize(isFirst: Bool, animated: Bool) {
-        let positionPoint = CGPoint(x: (view.frame.width - 300) / 2, y: buttton.frame.maxY)
+        let positionPoint = CGPoint(x: (view.frame.width - 300) / 2, y: buttton.frame.maxY + 15)
 
         if animated {
             UIView.animate(withDuration: 0.3) {
@@ -59,74 +70,6 @@ class ViewController: UIViewController {
             }
         } else {
             popupViewController.view.frame = CGRect.init(origin: positionPoint, size: CGSize(width: 300, height: isFirst ? 280 : 150))
-        }
-    }
-
-}
-
-class ChildViewController: UIViewController {
-    
-    var onCloseButtonTapped: (() -> Void)?
-    var onFirstSegmentSelected: (() -> Void)?
-    var onSecondSegmentSelected: (() -> Void)?
-    
-    let closeButton = UIButton()
-    let segmentedControl = UISegmentedControl(items: ["280pt", "150pt"])
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    
-        setupController()
-        setupButton()
-        setupSegmentedControl()
-
-        view.addSubview(closeButton)
-        view.addSubview(segmentedControl)
-        
-        setPositions()
-    }
-    
-    private func setupController() {
-        view.backgroundColor = .yellow
-        view.layer.cornerRadius = 10
-    }
-    
-    private func setupButton() {
-        closeButton.setImage(UIImage(systemName: "xmark") ?? UIImage(), for: .normal)
-        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-    }
-    
-    private func setupSegmentedControl() {
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
-    }
-    
-    private func setPositions() {
-        closeButton.sizeToFit()
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        segmentedControl.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor).isActive = true
-        segmentedControl.widthAnchor.constraint(equalToConstant: 140).isActive = true
-    }
-
-    @objc
-    func closeButtonTapped() {
-        onCloseButtonTapped?()
-    }
-    
-    @objc
-    func segmentedControlValueChanged(_ segmentedControl: UISegmentedControl) {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            onFirstSegmentSelected?()
-        case 1:
-            onSecondSegmentSelected?()
-        default:
-            break
         }
     }
 
